@@ -81,6 +81,24 @@ runs:
         sudo ./aws/install
     - name: Run scripts
       shell: bash
+      env:
+        INPUT_ACCESS_KEY_ID: ${{ inputs.access_key_id }}
+        INPUT_SECRET_ACCESS_KEY: ${{ inputs.secret_access_key }}
+        INPUT_ACCOUNT_ID: ${{ inputs.account_id }}
+        INPUT_REGISTRY_IDS: ${{ inputs.registry_ids }}
+        INPUT_ASSUME_ROLE: ${{ inputs.assume_role }}
+        INPUT_REPO: ${{ inputs.repo }}
+        INPUT_REGION: ${{ inputs.region }}
+        INPUT_CREATE_REPO: ${{ inputs.create_repo }}
+        INPUT_SET_REPO_POLICY: ${{ inputs.set_repo_policy }}
+        INPUT_REPO_POLICY_FILE: ${{ inputs.repo_policy_file }}
+        INPUT_TAGS: ${{ inputs.tags }}
+        INPUT_IMAGE_SCANNING_CONFIGURATION: ${{ inputs.image_scanning_configuration }}
+        INPUT_DOCKERFILE: ${{ inputs.dockerfile }}
+        INPUT_EXTRA_BUILD_ARGS: ${{ inputs.extra_build_args }}
+        INPUT_CACHE_FROM: ${{ inputs.cache_from }}
+        INPUT_PATH: ${{ inputs.path }}
+        INPUT_PREBUILD_SCRIPT: ${{ inputs.prebuild_script }}
       id: main
       run: |-
         INPUT_PATH="${INPUT_PATH:-.}"
