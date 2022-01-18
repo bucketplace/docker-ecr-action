@@ -81,6 +81,7 @@ runs:
         sudo ./aws/install
     - name: Run scripts
       shell: bash
+      id: main
       env:
         INPUT_ACCESS_KEY_ID: ${{ inputs.access_key_id }}
         INPUT_SECRET_ACCESS_KEY: ${{ inputs.secret_access_key }}
@@ -99,7 +100,6 @@ runs:
         INPUT_CACHE_FROM: ${{ inputs.cache_from }}
         INPUT_PATH: ${{ inputs.path }}
         INPUT_PREBUILD_SCRIPT: ${{ inputs.prebuild_script }}
-      id: main
       run: |-
         INPUT_PATH="${INPUT_PATH:-.}"
         INPUT_DOCKERFILE="${INPUT_DOCKERFILE:-Dockerfile}"
