@@ -72,13 +72,7 @@ runs:
   using: "composite"
   steps:
     - name: Install aws-cli
-      shell: bash
-      run: |-
-        mkdir -p /tmp/awscli
-        cd /tmp/awscli
-        curl "https://awscli.amazonaws.com/awscli-exe-linux-x86_64.zip" -o "awscliv2.zip"
-        unzip -qq awscliv2.zip
-        sudo ./aws/install
+      uses: unfor19/install-aws-cli-action@v1
     - name: Run scripts
       shell: bash
       id: main
