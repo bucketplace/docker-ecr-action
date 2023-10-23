@@ -221,23 +221,45 @@ runs:
         function docker_build() {
           echo "== START DOCKERIZE"
           local TAG=$1
+          local ACCOUNT_URL=$2
           local docker_tag_args=""
           local DOCKER_TAGS=$(echo "$TAG" | tr "," "\n")
+          local TMP_DOCKERFILE="Dockerfile.tmp"
+          cp $INPUT_DOCKERFILE $TMP_DOCKERFILE
+
+          case "$INPUT_ACCOUNT_ID" in
+            "534193482673")
+              sed -i 's|FROM base_image/\(.*\):\(.*\)|FROM '"$ACCOUNT_URL"'/base_image/\1:\2|' $TMP_DOCKERFILE
+              ;;
+            "387471694114")
+              sed -i 's|FROM base_image/\(.*\):\(.*\)|FROM '"$ACCOUNT_URL"'/base_image/\1:\2|' $TMP_DOCKERFILE
+              ;;
+            "557769319258")
+              sed -i 's|FROM base_image/\(.*\):\(.*\)|FROM '"$ACCOUNT_URL"'/base_image/\1:\2|' $TMP_DOCKERFILE
+              ;;
+            "752138464891")
+              sed -i 's|FROM base_image/\(.*\):\(.*\)|FROM '"$ACCOUNT_URL"'/base_image/\1:\2|' $TMP_DOCKERFILE
+              ;;
+            *)
+              ;;
+          esac
+
           for tag in $DOCKER_TAGS; do
-            docker_tag_args="$docker_tag_args -t $2/$INPUT_REPO:$tag"
+            docker_tag_args="$docker_tag_args -t $ACCOUNT_URL/$INPUT_REPO:$tag"
           done
 
           if [ -n "${INPUT_CACHE_FROM}" ]; then
             for i in ${INPUT_CACHE_FROM//,/ }; do
               docker pull $i
             done
-
             INPUT_EXTRA_BUILD_ARGS="$INPUT_EXTRA_BUILD_ARGS --cache-from=$INPUT_CACHE_FROM"
           fi
 
-          docker build $INPUT_EXTRA_BUILD_ARGS -f $INPUT_DOCKERFILE $docker_tag_args $INPUT_PATH
+          docker build $INPUT_EXTRA_BUILD_ARGS -f $TMP_DOCKERFILE $docker_tag_args $INPUT_PATH
+          rm $TMP_DOCKERFILE
           echo "== FINISHED DOCKERIZE"
         }
+
 
         function docker_push_to_ecr() {
           echo "== START PUSH TO ECR"
