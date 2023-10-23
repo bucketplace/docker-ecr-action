@@ -252,6 +252,7 @@ runs:
             for i in ${INPUT_CACHE_FROM//,/ }; do
               docker pull $i
             done
+            
             INPUT_EXTRA_BUILD_ARGS="$INPUT_EXTRA_BUILD_ARGS --cache-from=$INPUT_CACHE_FROM"
           fi
 
