@@ -245,7 +245,7 @@ runs:
           esac
 
           for tag in $DOCKER_TAGS; do
-            docker_tag_args="$docker_tag_args -t $ACCOUNT_URL/$INPUT_REPO:$tag"
+            docker_tag_args="$docker_tag_args -t $2/$INPUT_REPO:$tag"
           done
 
           if [ -n "${INPUT_CACHE_FROM}" ]; then
