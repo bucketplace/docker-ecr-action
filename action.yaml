@@ -260,7 +260,6 @@ runs:
           echo "== FINISHED DOCKERIZE"
         }
 
-
         function docker_push_to_ecr() {
           echo "== START PUSH TO ECR"
           local TAG=$1
